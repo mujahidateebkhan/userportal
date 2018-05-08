@@ -1,8 +1,10 @@
 package com.userportal.rest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import com.userportal.entites.Role;
 import com.userportal.entites.User;
 import com.userportal.service.UserService;
 import com.userportal.vo.UserVO;
@@ -19,13 +21,11 @@ public class UserController {
     private UserService userService;
 
     @PostMapping(path = "/createUser")
-    public User create(@RequestBody User user){
-    	System.out.println(user.getUserName() +" ***********************");
-        return userService.create(user);
+    public User create(@RequestBody UserVO userVO){
+        return userService.create(userVO);
     }
     @PostMapping(path = "/create")
     public void createUser(@RequestBody UserVO user){
-    	System.out.println(user.getUserName() +" ***********************");
         // userService.create(user);
     }
     
@@ -45,6 +45,7 @@ public class UserController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('Admin')")
     public List<User> findAll(){
         return userService.findAll();
     }
@@ -54,9 +55,8 @@ public class UserController {
     	return userService.findByName(username);
     }
     
-    @GetMapping(path = "/login")
-	public Principal user(Principal principal) {
-    	System.out.println(principal.getName());
-		return principal;
-	}
+    @GetMapping(path = "/getRoles")
+	public List<Role> getRoles(){
+    	return userService.getAllRoles();
+    }
 }

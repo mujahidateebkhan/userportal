@@ -1,16 +1,19 @@
 package com.userportal.vo;
 
 public class UserVO {
-	int id;
+	Long id;
 	String firstName;
 	String lastName;
 	String userName;
 	String password;
 	String email;
-	public int getId() {
+	Long role;
+	String rolename;
+	
+	public Long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getFirstName() {
@@ -42,5 +45,17 @@ public class UserVO {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public Long getRole() {
+		return role;
+	}
+	public void setRole(Long role) {
+		this.role = role;
+	}
+	public String getRolename() {
+		return rolename;
+	}
+	public void setRolename(String rolename) {
+		this.rolename = rolename;
 	}
 }
